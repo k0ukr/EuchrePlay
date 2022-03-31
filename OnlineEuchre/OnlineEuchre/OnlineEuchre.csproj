@@ -50,9 +50,16 @@
     <Compile Include="Classes\Deck.cs" />
     <Compile Include="Classes\LoadCards.cs" />
     <Compile Include="Classes\Player.cs" />
+    <Compile Include="Classes\PlayerManager.cs" />
     <Compile Include="Extras\Randomizer.cs" />
     <Compile Include="Extras\CommonMod.cs" />
     <Compile Include="Extras\Constants.cs" />
+    <Compile Include="frmAsk.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAsk.Designer.cs">
+      <DependentUpon>frmAsk.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -61,6 +68,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmAsk.resx">
+      <DependentUpon>frmAsk.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
@@ -122,6 +132,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\Ace_Spade.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\X_Arrow.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\X_Call.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\X_CardBack.jpg">

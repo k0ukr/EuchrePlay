@@ -11,6 +11,7 @@ namespace OnlineEuchre.Extras
     public static class Constants
     {
         public static string gAppPath;
+        public const int TURNUP_INDEX = 21;
 
         public enum Suit
         {
@@ -52,5 +53,7 @@ namespace OnlineEuchre.Extras
 
         public const float Horizontal = 90.0F;
         public const float Vertical = 0.0F;
+        public const float VertDown = 180.0F;
+        public const float HorzRight = 270.0F;
     }
 }

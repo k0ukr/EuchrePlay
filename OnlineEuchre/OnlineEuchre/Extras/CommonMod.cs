@@ -9,6 +9,8 @@ namespace OnlineEuchre.Extras
 {
     public static class CommonMod
     {
+        public static List<int> lstNextWhatever = new List<int> { 2, 3, 4, 1 }; // Gives Id of the next player to lay a card, deal, etc
+
         public static List<string> GetFilesFromPath(string path)
         {
             List<string> files = new List<string>();

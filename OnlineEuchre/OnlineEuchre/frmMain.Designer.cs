@@ -29,7 +29,6 @@ namespace OnlineEuchre
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.pb01_01 = new System.Windows.Forms.PictureBox();
             this.pb01_05 = new System.Windows.Forms.PictureBox();
             this.pb01_04 = new System.Windows.Forms.PictureBox();
@@ -50,21 +49,32 @@ namespace OnlineEuchre
             this.pb02_03 = new System.Windows.Forms.PictureBox();
             this.pb02_02 = new System.Windows.Forms.PictureBox();
             this.pb02_05 = new System.Windows.Forms.PictureBox();
-            this.pb03_06 = new System.Windows.Forms.PictureBox();
-            this.pb01_06 = new System.Windows.Forms.PictureBox();
-            this.pb02_06 = new System.Windows.Forms.PictureBox();
-            this.pb04_06 = new System.Windows.Forms.PictureBox();
+            this.pb03_Play = new System.Windows.Forms.PictureBox();
+            this.pb01_Play = new System.Windows.Forms.PictureBox();
+            this.pb02_Play = new System.Windows.Forms.PictureBox();
+            this.pb04_Play = new System.Windows.Forms.PictureBox();
             this.btnDeal = new System.Windows.Forms.Button();
             this.btnShuffle = new System.Windows.Forms.Button();
-            this.EuchreTimer = new System.Windows.Forms.Timer(this.components);
-            this.btnStart = new System.Windows.Forms.Button();
-            this.btnRandom = new System.Windows.Forms.Button();
-            this.pbD2 = new System.Windows.Forms.PictureBox();
-            this.pbD4 = new System.Windows.Forms.PictureBox();
-            this.pbD3 = new System.Windows.Forms.PictureBox();
-            this.pbD1 = new System.Windows.Forms.PictureBox();
-            this.pbTrump = new System.Windows.Forms.PictureBox();
+            this.pb02_Deal = new System.Windows.Forms.PictureBox();
+            this.pb04_Deal = new System.Windows.Forms.PictureBox();
+            this.pb03_Deal = new System.Windows.Forms.PictureBox();
+            this.pb01_Deal = new System.Windows.Forms.PictureBox();
+            this.pb01_Trump = new System.Windows.Forms.PictureBox();
             this.btnTrump = new System.Windows.Forms.Button();
+            this.pbTurnup = new System.Windows.Forms.PictureBox();
+            this.pb01_Call = new System.Windows.Forms.PictureBox();
+            this.pb02_Call = new System.Windows.Forms.PictureBox();
+            this.pb03_Call = new System.Windows.Forms.PictureBox();
+            this.pb04_Call = new System.Windows.Forms.PictureBox();
+            this.pb02_Trump = new System.Windows.Forms.PictureBox();
+            this.pb03_Trump = new System.Windows.Forms.PictureBox();
+            this.pb04_Trump = new System.Windows.Forms.PictureBox();
+            this.lblDiscard = new System.Windows.Forms.Label();
+            this.pb01_Arrow = new System.Windows.Forms.PictureBox();
+            this.pb02_Arrow = new System.Windows.Forms.PictureBox();
+            this.pb03_Arrow = new System.Windows.Forms.PictureBox();
+            this.pb04_Arrow = new System.Windows.Forms.PictureBox();
+            this.btnCall = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pb01_01)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pb01_05)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pb01_04)).BeginInit();
@@ -85,15 +95,27 @@ namespace OnlineEuchre
             ((System.ComponentModel.ISupportInitialize)(this.pb02_03)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pb02_02)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pb02_05)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pb03_06)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pb01_06)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pb02_06)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pb04_06)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbD2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbD4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbD3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbD1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbTrump)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb03_Play)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb01_Play)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb02_Play)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb04_Play)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb02_Deal)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb04_Deal)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb03_Deal)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb01_Deal)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb01_Trump)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbTurnup)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb01_Call)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb02_Call)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb03_Call)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb04_Call)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb02_Trump)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb03_Trump)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb04_Trump)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb01_Arrow)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb02_Arrow)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb03_Arrow)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb04_Arrow)).BeginInit();
             this.SuspendLayout();
             // 
             // pb01_01
@@ -105,6 +127,7 @@ namespace OnlineEuchre
             this.pb01_01.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pb01_01.TabIndex = 0;
             this.pb01_01.TabStop = false;
+            this.pb01_01.Click += new System.EventHandler(this.Common_PictureBoxClick);
             // 
             // pb01_05
             // 
@@ -115,6 +138,7 @@ namespace OnlineEuchre
             this.pb01_05.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pb01_05.TabIndex = 4;
             this.pb01_05.TabStop = false;
+            this.pb01_05.Click += new System.EventHandler(this.Common_PictureBoxClick);
             // 
             // pb01_04
             // 
@@ -125,6 +149,7 @@ namespace OnlineEuchre
             this.pb01_04.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pb01_04.TabIndex = 1;
             this.pb01_04.TabStop = false;
+            this.pb01_04.Click += new System.EventHandler(this.Common_PictureBoxClick);
             // 
             // pb01_03
             // 
@@ -135,6 +160,7 @@ namespace OnlineEuchre
             this.pb01_03.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pb01_03.TabIndex = 2;
             this.pb01_03.TabStop = false;
+            this.pb01_03.Click += new System.EventHandler(this.Common_PictureBoxClick);
             // 
             // pb01_02
             // 
@@ -145,6 +171,7 @@ namespace OnlineEuchre
             this.pb01_02.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pb01_02.TabIndex = 3;
             this.pb01_02.TabStop = false;
+            this.pb01_02.Click += new System.EventHandler(this.Common_PictureBoxClick);
             // 
             // pb03_01
             // 
@@ -155,6 +182,7 @@ namespace OnlineEuchre
             this.pb03_01.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pb03_01.TabIndex = 9;
             this.pb03_01.TabStop = false;
+            this.pb03_01.Click += new System.EventHandler(this.Common_PictureBoxClick);
             // 
             // pb03_04
             // 
@@ -165,6 +193,7 @@ namespace OnlineEuchre
             this.pb03_04.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pb03_04.TabIndex = 8;
             this.pb03_04.TabStop = false;
+            this.pb03_04.Click += new System.EventHandler(this.Common_PictureBoxClick);
             // 
             // pb03_03
             // 
@@ -175,6 +204,7 @@ namespace OnlineEuchre
             this.pb03_03.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pb03_03.TabIndex = 7;
             this.pb03_03.TabStop = false;
+            this.pb03_03.Click += new System.EventHandler(this.Common_PictureBoxClick);
             // 
             // pb03_02
             // 
@@ -185,6 +215,7 @@ namespace OnlineEuchre
             this.pb03_02.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pb03_02.TabIndex = 6;
             this.pb03_02.TabStop = false;
+            this.pb03_02.Click += new System.EventHandler(this.Common_PictureBoxClick);
             // 
             // pb03_05
             // 
@@ -195,6 +226,7 @@ namespace OnlineEuchre
             this.pb03_05.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pb03_05.TabIndex = 5;
             this.pb03_05.TabStop = false;
+            this.pb03_05.Click += new System.EventHandler(this.Common_PictureBoxClick);
             // 
             // pb04_01
             // 
@@ -205,6 +237,7 @@ namespace OnlineEuchre
             this.pb04_01.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pb04_01.TabIndex = 14;
             this.pb04_01.TabStop = false;
+            this.pb04_01.Click += new System.EventHandler(this.Common_PictureBoxClick);
             // 
             // pb04_04
             // 
@@ -215,6 +248,7 @@ namespace OnlineEuchre
             this.pb04_04.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pb04_04.TabIndex = 15;
             this.pb04_04.TabStop = false;
+            this.pb04_04.Click += new System.EventHandler(this.Common_PictureBoxClick);
             // 
             // pb04_03
             // 
@@ -225,6 +259,7 @@ namespace OnlineEuchre
             this.pb04_03.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pb04_03.TabIndex = 16;
             this.pb04_03.TabStop = false;
+            this.pb04_03.Click += new System.EventHandler(this.Common_PictureBoxClick);
             // 
             // pb04_02
             // 
@@ -235,6 +270,7 @@ namespace OnlineEuchre
             this.pb04_02.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pb04_02.TabIndex = 17;
             this.pb04_02.TabStop = false;
+            this.pb04_02.Click += new System.EventHandler(this.Common_PictureBoxClick);
             // 
             // pb04_05
             // 
@@ -245,6 +281,7 @@ namespace OnlineEuchre
             this.pb04_05.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pb04_05.TabIndex = 18;
             this.pb04_05.TabStop = false;
+            this.pb04_05.Click += new System.EventHandler(this.Common_PictureBoxClick);
             // 
             // pb02_01
             // 
@@ -255,6 +292,7 @@ namespace OnlineEuchre
             this.pb02_01.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pb02_01.TabIndex = 23;
             this.pb02_01.TabStop = false;
+            this.pb02_01.Click += new System.EventHandler(this.Common_PictureBoxClick);
             // 
             // pb02_04
             // 
@@ -265,6 +303,7 @@ namespace OnlineEuchre
             this.pb02_04.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pb02_04.TabIndex = 22;
             this.pb02_04.TabStop = false;
+            this.pb02_04.Click += new System.EventHandler(this.Common_PictureBoxClick);
             // 
             // pb02_03
             // 
@@ -275,6 +314,7 @@ namespace OnlineEuchre
             this.pb02_03.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pb02_03.TabIndex = 21;
             this.pb02_03.TabStop = false;
+            this.pb02_03.Click += new System.EventHandler(this.Common_PictureBoxClick);
             // 
             // pb02_02
             // 
@@ -285,6 +325,7 @@ namespace OnlineEuchre
             this.pb02_02.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pb02_02.TabIndex = 20;
             this.pb02_02.TabStop = false;
+            this.pb02_02.Click += new System.EventHandler(this.Common_PictureBoxClick);
             // 
             // pb02_05
             // 
@@ -295,42 +336,43 @@ namespace OnlineEuchre
             this.pb02_05.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pb02_05.TabIndex = 19;
             this.pb02_05.TabStop = false;
+            this.pb02_05.Click += new System.EventHandler(this.Common_PictureBoxClick);
             // 
-            // pb03_06
+            // pb03_Play
             // 
-            this.pb03_06.Location = new System.Drawing.Point(276, 174);
-            this.pb03_06.Name = "pb03_06";
-            this.pb03_06.Size = new System.Drawing.Size(75, 105);
-            this.pb03_06.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pb03_06.TabIndex = 24;
-            this.pb03_06.TabStop = false;
+            this.pb03_Play.Location = new System.Drawing.Point(276, 204);
+            this.pb03_Play.Name = "pb03_Play";
+            this.pb03_Play.Size = new System.Drawing.Size(75, 105);
+            this.pb03_Play.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pb03_Play.TabIndex = 24;
+            this.pb03_Play.TabStop = false;
             // 
-            // pb01_06
+            // pb01_Play
             // 
-            this.pb01_06.Location = new System.Drawing.Point(276, 344);
-            this.pb01_06.Name = "pb01_06";
-            this.pb01_06.Size = new System.Drawing.Size(75, 105);
-            this.pb01_06.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pb01_06.TabIndex = 25;
-            this.pb01_06.TabStop = false;
+            this.pb01_Play.Location = new System.Drawing.Point(276, 314);
+            this.pb01_Play.Name = "pb01_Play";
+            this.pb01_Play.Size = new System.Drawing.Size(75, 105);
+            this.pb01_Play.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pb01_Play.TabIndex = 25;
+            this.pb01_Play.TabStop = false;
             // 
-            // pb02_06
+            // pb02_Play
             // 
-            this.pb02_06.Location = new System.Drawing.Point(196, 259);
-            this.pb02_06.Name = "pb02_06";
-            this.pb02_06.Size = new System.Drawing.Size(75, 105);
-            this.pb02_06.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pb02_06.TabIndex = 26;
-            this.pb02_06.TabStop = false;
+            this.pb02_Play.Location = new System.Drawing.Point(196, 259);
+            this.pb02_Play.Name = "pb02_Play";
+            this.pb02_Play.Size = new System.Drawing.Size(75, 105);
+            this.pb02_Play.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pb02_Play.TabIndex = 26;
+            this.pb02_Play.TabStop = false;
             // 
-            // pb04_06
+            // pb04_Play
             // 
-            this.pb04_06.Location = new System.Drawing.Point(356, 259);
-            this.pb04_06.Name = "pb04_06";
-            this.pb04_06.Size = new System.Drawing.Size(75, 105);
-            this.pb04_06.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pb04_06.TabIndex = 27;
-            this.pb04_06.TabStop = false;
+            this.pb04_Play.Location = new System.Drawing.Point(356, 259);
+            this.pb04_Play.Name = "pb04_Play";
+            this.pb04_Play.Size = new System.Drawing.Size(75, 105);
+            this.pb04_Play.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pb04_Play.TabIndex = 27;
+            this.pb04_Play.TabStop = false;
             // 
             // btnDeal
             // 
@@ -352,85 +394,58 @@ namespace OnlineEuchre
             this.btnShuffle.UseVisualStyleBackColor = true;
             this.btnShuffle.Click += new System.EventHandler(this.btnShuffle_Click);
             // 
-            // EuchreTimer
+            // pb02_Deal
             // 
-            this.EuchreTimer.Enabled = true;
-            this.EuchreTimer.Interval = 750;
-            this.EuchreTimer.Tick += new System.EventHandler(this.EuchreTimer_Tick);
+            this.pb02_Deal.Location = new System.Drawing.Point(116, 287);
+            this.pb02_Deal.Name = "pb02_Deal";
+            this.pb02_Deal.Size = new System.Drawing.Size(48, 48);
+            this.pb02_Deal.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pb02_Deal.TabIndex = 34;
+            this.pb02_Deal.TabStop = false;
+            this.pb02_Deal.Visible = false;
             // 
-            // btnStart
+            // pb04_Deal
             // 
-            this.btnStart.Location = new System.Drawing.Point(571, 527);
-            this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(53, 23);
-            this.btnStart.TabIndex = 32;
-            this.btnStart.Text = "Start";
-            this.btnStart.UseVisualStyleBackColor = true;
-            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
+            this.pb04_Deal.Location = new System.Drawing.Point(463, 287);
+            this.pb04_Deal.Name = "pb04_Deal";
+            this.pb04_Deal.Size = new System.Drawing.Size(48, 48);
+            this.pb04_Deal.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pb04_Deal.TabIndex = 35;
+            this.pb04_Deal.TabStop = false;
+            this.pb04_Deal.Visible = false;
             // 
-            // btnRandom
+            // pb03_Deal
             // 
-            this.btnRandom.Location = new System.Drawing.Point(6, 515);
-            this.btnRandom.Name = "btnRandom";
-            this.btnRandom.Size = new System.Drawing.Size(57, 23);
-            this.btnRandom.TabIndex = 33;
-            this.btnRandom.Text = "Random";
-            this.btnRandom.UseVisualStyleBackColor = true;
-            this.btnRandom.Click += new System.EventHandler(this.btnRandom_Click);
+            this.pb03_Deal.Location = new System.Drawing.Point(289, 114);
+            this.pb03_Deal.Name = "pb03_Deal";
+            this.pb03_Deal.Size = new System.Drawing.Size(48, 48);
+            this.pb03_Deal.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pb03_Deal.TabIndex = 36;
+            this.pb03_Deal.TabStop = false;
+            this.pb03_Deal.Visible = false;
             // 
-            // pbD2
+            // pb01_Deal
             // 
-            this.pbD2.Location = new System.Drawing.Point(116, 287);
-            this.pbD2.Name = "pbD2";
-            this.pbD2.Size = new System.Drawing.Size(48, 48);
-            this.pbD2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbD2.TabIndex = 34;
-            this.pbD2.TabStop = false;
-            this.pbD2.Visible = false;
+            this.pb01_Deal.Location = new System.Drawing.Point(289, 461);
+            this.pb01_Deal.Name = "pb01_Deal";
+            this.pb01_Deal.Size = new System.Drawing.Size(48, 48);
+            this.pb01_Deal.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pb01_Deal.TabIndex = 37;
+            this.pb01_Deal.TabStop = false;
+            this.pb01_Deal.Visible = false;
             // 
-            // pbD4
+            // pb01_Trump
             // 
-            this.pbD4.Location = new System.Drawing.Point(463, 287);
-            this.pbD4.Name = "pbD4";
-            this.pbD4.Size = new System.Drawing.Size(48, 48);
-            this.pbD4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbD4.TabIndex = 35;
-            this.pbD4.TabStop = false;
-            this.pbD4.Visible = false;
-            // 
-            // pbD3
-            // 
-            this.pbD3.Location = new System.Drawing.Point(289, 114);
-            this.pbD3.Name = "pbD3";
-            this.pbD3.Size = new System.Drawing.Size(48, 48);
-            this.pbD3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbD3.TabIndex = 36;
-            this.pbD3.TabStop = false;
-            this.pbD3.Visible = false;
-            // 
-            // pbD1
-            // 
-            this.pbD1.Location = new System.Drawing.Point(289, 461);
-            this.pbD1.Name = "pbD1";
-            this.pbD1.Size = new System.Drawing.Size(48, 48);
-            this.pbD1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbD1.TabIndex = 37;
-            this.pbD1.TabStop = false;
-            this.pbD1.Visible = false;
-            // 
-            // pbTrump
-            // 
-            this.pbTrump.Location = new System.Drawing.Point(289, 287);
-            this.pbTrump.Name = "pbTrump";
-            this.pbTrump.Size = new System.Drawing.Size(48, 48);
-            this.pbTrump.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbTrump.TabIndex = 38;
-            this.pbTrump.TabStop = false;
-            this.pbTrump.Visible = false;
+            this.pb01_Trump.Location = new System.Drawing.Point(209, 461);
+            this.pb01_Trump.Name = "pb01_Trump";
+            this.pb01_Trump.Size = new System.Drawing.Size(48, 48);
+            this.pb01_Trump.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pb01_Trump.TabIndex = 38;
+            this.pb01_Trump.TabStop = false;
             // 
             // btnTrump
             // 
-            this.btnTrump.Location = new System.Drawing.Point(6, 544);
+            this.btnTrump.Location = new System.Drawing.Point(6, 527);
             this.btnTrump.Name = "btnTrump";
             this.btnTrump.Size = new System.Drawing.Size(57, 23);
             this.btnTrump.TabIndex = 39;
@@ -438,26 +453,171 @@ namespace OnlineEuchre
             this.btnTrump.UseVisualStyleBackColor = true;
             this.btnTrump.Click += new System.EventHandler(this.btnTrump_Click);
             // 
+            // pbTurnup
+            // 
+            this.pbTurnup.Location = new System.Drawing.Point(463, 461);
+            this.pbTurnup.Name = "pbTurnup";
+            this.pbTurnup.Size = new System.Drawing.Size(34, 29);
+            this.pbTurnup.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbTurnup.TabIndex = 40;
+            this.pbTurnup.TabStop = false;
+            // 
+            // pb01_Call
+            // 
+            this.pb01_Call.Location = new System.Drawing.Point(369, 461);
+            this.pb01_Call.Name = "pb01_Call";
+            this.pb01_Call.Size = new System.Drawing.Size(48, 48);
+            this.pb01_Call.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pb01_Call.TabIndex = 41;
+            this.pb01_Call.TabStop = false;
+            this.pb01_Call.Visible = false;
+            // 
+            // pb02_Call
+            // 
+            this.pb02_Call.Location = new System.Drawing.Point(116, 367);
+            this.pb02_Call.Name = "pb02_Call";
+            this.pb02_Call.Size = new System.Drawing.Size(48, 48);
+            this.pb02_Call.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pb02_Call.TabIndex = 42;
+            this.pb02_Call.TabStop = false;
+            this.pb02_Call.Visible = false;
+            // 
+            // pb03_Call
+            // 
+            this.pb03_Call.Location = new System.Drawing.Point(209, 114);
+            this.pb03_Call.Name = "pb03_Call";
+            this.pb03_Call.Size = new System.Drawing.Size(48, 48);
+            this.pb03_Call.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pb03_Call.TabIndex = 43;
+            this.pb03_Call.TabStop = false;
+            this.pb03_Call.Visible = false;
+            // 
+            // pb04_Call
+            // 
+            this.pb04_Call.Location = new System.Drawing.Point(463, 207);
+            this.pb04_Call.Name = "pb04_Call";
+            this.pb04_Call.Size = new System.Drawing.Size(48, 48);
+            this.pb04_Call.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pb04_Call.TabIndex = 44;
+            this.pb04_Call.TabStop = false;
+            this.pb04_Call.Visible = false;
+            // 
+            // pb02_Trump
+            // 
+            this.pb02_Trump.Location = new System.Drawing.Point(117, 207);
+            this.pb02_Trump.Name = "pb02_Trump";
+            this.pb02_Trump.Size = new System.Drawing.Size(48, 48);
+            this.pb02_Trump.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pb02_Trump.TabIndex = 45;
+            this.pb02_Trump.TabStop = false;
+            // 
+            // pb03_Trump
+            // 
+            this.pb03_Trump.Location = new System.Drawing.Point(369, 117);
+            this.pb03_Trump.Name = "pb03_Trump";
+            this.pb03_Trump.Size = new System.Drawing.Size(48, 48);
+            this.pb03_Trump.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pb03_Trump.TabIndex = 46;
+            this.pb03_Trump.TabStop = false;
+            // 
+            // pb04_Trump
+            // 
+            this.pb04_Trump.Location = new System.Drawing.Point(463, 367);
+            this.pb04_Trump.Name = "pb04_Trump";
+            this.pb04_Trump.Size = new System.Drawing.Size(48, 48);
+            this.pb04_Trump.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pb04_Trump.TabIndex = 47;
+            this.pb04_Trump.TabStop = false;
+            // 
+            // lblDiscard
+            // 
+            this.lblDiscard.AutoSize = true;
+            this.lblDiscard.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDiscard.Location = new System.Drawing.Point(261, 428);
+            this.lblDiscard.Name = "lblDiscard";
+            this.lblDiscard.Size = new System.Drawing.Size(105, 25);
+            this.lblDiscard.TabIndex = 48;
+            this.lblDiscard.Text = "DISCARD";
+            this.lblDiscard.Visible = false;
+            // 
+            // pb01_Arrow
+            // 
+            this.pb01_Arrow.Location = new System.Drawing.Point(209, 407);
+            this.pb01_Arrow.Name = "pb01_Arrow";
+            this.pb01_Arrow.Size = new System.Drawing.Size(48, 48);
+            this.pb01_Arrow.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pb01_Arrow.TabIndex = 49;
+            this.pb01_Arrow.TabStop = false;
+            // 
+            // pb02_Arrow
+            // 
+            this.pb02_Arrow.Location = new System.Drawing.Point(171, 207);
+            this.pb02_Arrow.Name = "pb02_Arrow";
+            this.pb02_Arrow.Size = new System.Drawing.Size(48, 48);
+            this.pb02_Arrow.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pb02_Arrow.TabIndex = 50;
+            this.pb02_Arrow.TabStop = false;
+            // 
+            // pb03_Arrow
+            // 
+            this.pb03_Arrow.Location = new System.Drawing.Point(369, 171);
+            this.pb03_Arrow.Name = "pb03_Arrow";
+            this.pb03_Arrow.Size = new System.Drawing.Size(48, 48);
+            this.pb03_Arrow.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pb03_Arrow.TabIndex = 51;
+            this.pb03_Arrow.TabStop = false;
+            // 
+            // pb04_Arrow
+            // 
+            this.pb04_Arrow.Location = new System.Drawing.Point(409, 367);
+            this.pb04_Arrow.Name = "pb04_Arrow";
+            this.pb04_Arrow.Size = new System.Drawing.Size(48, 48);
+            this.pb04_Arrow.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pb04_Arrow.TabIndex = 52;
+            this.pb04_Arrow.TabStop = false;
+            // 
+            // btnCall
+            // 
+            this.btnCall.Location = new System.Drawing.Point(6, 556);
+            this.btnCall.Name = "btnCall";
+            this.btnCall.Size = new System.Drawing.Size(57, 23);
+            this.btnCall.TabIndex = 53;
+            this.btnCall.Text = "Call";
+            this.btnCall.UseVisualStyleBackColor = true;
+            this.btnCall.Click += new System.EventHandler(this.btnCall_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MediumSeaGreen;
             this.ClientSize = new System.Drawing.Size(627, 624);
+            this.Controls.Add(this.btnCall);
+            this.Controls.Add(this.pb04_Arrow);
+            this.Controls.Add(this.pb03_Arrow);
+            this.Controls.Add(this.pb02_Arrow);
+            this.Controls.Add(this.pb01_Arrow);
+            this.Controls.Add(this.lblDiscard);
+            this.Controls.Add(this.pb04_Trump);
+            this.Controls.Add(this.pb03_Trump);
+            this.Controls.Add(this.pb02_Trump);
+            this.Controls.Add(this.pb04_Call);
+            this.Controls.Add(this.pb03_Call);
+            this.Controls.Add(this.pb02_Call);
+            this.Controls.Add(this.pb01_Call);
+            this.Controls.Add(this.pbTurnup);
             this.Controls.Add(this.btnTrump);
-            this.Controls.Add(this.pbTrump);
-            this.Controls.Add(this.pbD1);
-            this.Controls.Add(this.pbD3);
-            this.Controls.Add(this.pbD4);
-            this.Controls.Add(this.pbD2);
-            this.Controls.Add(this.btnRandom);
-            this.Controls.Add(this.btnStart);
+            this.Controls.Add(this.pb01_Trump);
+            this.Controls.Add(this.pb01_Deal);
+            this.Controls.Add(this.pb03_Deal);
+            this.Controls.Add(this.pb04_Deal);
+            this.Controls.Add(this.pb02_Deal);
             this.Controls.Add(this.btnShuffle);
             this.Controls.Add(this.btnDeal);
-            this.Controls.Add(this.pb04_06);
-            this.Controls.Add(this.pb02_06);
-            this.Controls.Add(this.pb01_06);
-            this.Controls.Add(this.pb03_06);
+            this.Controls.Add(this.pb04_Play);
+            this.Controls.Add(this.pb02_Play);
+            this.Controls.Add(this.pb01_Play);
+            this.Controls.Add(this.pb03_Play);
             this.Controls.Add(this.pb02_01);
             this.Controls.Add(this.pb02_04);
             this.Controls.Add(this.pb02_03);
@@ -503,16 +663,29 @@ namespace OnlineEuchre
             ((System.ComponentModel.ISupportInitialize)(this.pb02_03)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pb02_02)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pb02_05)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pb03_06)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pb01_06)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pb02_06)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pb04_06)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbD2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbD4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbD3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbD1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbTrump)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb03_Play)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb01_Play)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb02_Play)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb04_Play)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb02_Deal)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb04_Deal)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb03_Deal)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb01_Deal)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb01_Trump)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbTurnup)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb01_Call)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb02_Call)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb03_Call)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb04_Call)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb02_Trump)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb03_Trump)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb04_Trump)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb01_Arrow)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb02_Arrow)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb03_Arrow)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb04_Arrow)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -538,21 +711,32 @@ namespace OnlineEuchre
         private System.Windows.Forms.PictureBox pb02_03;
         private System.Windows.Forms.PictureBox pb02_02;
         private System.Windows.Forms.PictureBox pb02_05;
-        private System.Windows.Forms.PictureBox pb03_06;
-        private System.Windows.Forms.PictureBox pb01_06;
-        private System.Windows.Forms.PictureBox pb02_06;
-        private System.Windows.Forms.PictureBox pb04_06;
+        private System.Windows.Forms.PictureBox pb03_Play;
+        private System.Windows.Forms.PictureBox pb01_Play;
+        private System.Windows.Forms.PictureBox pb02_Play;
+        private System.Windows.Forms.PictureBox pb04_Play;
         private System.Windows.Forms.Button btnDeal;
         private System.Windows.Forms.Button btnShuffle;
-        private System.Windows.Forms.Timer EuchreTimer;
-        private System.Windows.Forms.Button btnStart;
-        private System.Windows.Forms.Button btnRandom;
-        private System.Windows.Forms.PictureBox pbD2;
-        private System.Windows.Forms.PictureBox pbD4;
-        private System.Windows.Forms.PictureBox pbD3;
-        private System.Windows.Forms.PictureBox pbD1;
-        private System.Windows.Forms.PictureBox pbTrump;
+        private System.Windows.Forms.PictureBox pb02_Deal;
+        private System.Windows.Forms.PictureBox pb04_Deal;
+        private System.Windows.Forms.PictureBox pb03_Deal;
+        private System.Windows.Forms.PictureBox pb01_Deal;
+        private System.Windows.Forms.PictureBox pb01_Trump;
         private System.Windows.Forms.Button btnTrump;
+        private System.Windows.Forms.PictureBox pbTurnup;
+        private System.Windows.Forms.PictureBox pb01_Call;
+        private System.Windows.Forms.PictureBox pb02_Call;
+        private System.Windows.Forms.PictureBox pb03_Call;
+        private System.Windows.Forms.PictureBox pb04_Call;
+        private System.Windows.Forms.PictureBox pb02_Trump;
+        private System.Windows.Forms.PictureBox pb03_Trump;
+        private System.Windows.Forms.PictureBox pb04_Trump;
+        private System.Windows.Forms.Label lblDiscard;
+        private System.Windows.Forms.PictureBox pb01_Arrow;
+        private System.Windows.Forms.PictureBox pb02_Arrow;
+        private System.Windows.Forms.PictureBox pb03_Arrow;
+        private System.Windows.Forms.PictureBox pb04_Arrow;
+        private System.Windows.Forms.Button btnCall;
     }
 }
 

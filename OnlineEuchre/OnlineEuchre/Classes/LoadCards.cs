@@ -16,10 +16,12 @@ namespace OnlineEuchre.Classes
         private static IDictionaryEnumerator myEnumerator = null;
         public static Bitmap ClubTrump = null;
         public static Bitmap DiamondTrump = null;
+        public static Bitmap CallCoin = null;
         public static Bitmap HeartTrump = null;
         public static Bitmap SpadeTrump = null;
         public static Bitmap CardBack = null;
         public static Bitmap DealerCoin = null;
+        public static Bitmap ArrowCoin = null;
         public static Dictionary<string, Card> dictCard = new Dictionary<string, Card>();
 
         public static void LoadImages(string cardPath)
@@ -42,6 +44,12 @@ namespace OnlineEuchre.Classes
                             break;
                         case "Dealer":
                             DealerCoin = (Bitmap)Image.FromFile(file);
+                            break;
+                        case "Call":
+                            CallCoin = (Bitmap)Image.FromFile(file);
+                            break;
+                        case "Arrow":
+                            ArrowCoin = (Bitmap)Image.FromFile(file);
                             break;
                         case "Club":
                             ClubTrump = (Bitmap)Image.FromFile(file);
