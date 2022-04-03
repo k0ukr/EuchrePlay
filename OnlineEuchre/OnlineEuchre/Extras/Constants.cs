@@ -10,9 +10,29 @@ namespace OnlineEuchre.Extras
 {
     public static class Constants
     {
+        public static int CallWaitTime = 5;
         public static string gAppPath;
         public const int TURNUP_INDEX = 21;
 
+        // Typical Hands
+        // Lowest Hand
+        public static int LowestHand = ((int)Values.NineNoTrump * 3) + ((int)Values.TenNoTrump * 2);
+        // 3 Suit Aces
+        public static int ThreeNonTrumpAces = ((int)Values.AceNoTrump) * 3;
+        // 1 Lowest Trump
+        public static int LowestTrumpOne = (int)Values.NineTrump;
+        // 2 Lowest Trump
+        public static int LowestTrumpTwo = (int)Values.NineTrump + (int)Values.TenTrump;
+        // 3 Lowest Trump
+        public static int LowestTrumpThree = (int)Values.NineTrump + (int)Values.TenTrump + (int)Values.QueenTrump;
+        // 4 Lowest Trump
+        public static int LowestTrumpFour = (int)Values.NineTrump + (int)Values.TenTrump + (int)Values.QueenTrump + (int)Values.KingTrump;
+        // All Trump: Lowest
+        public static int LowestTrumpFive = LowestTrumpThree + (int)Values.KingTrump + (int)Values.AceTrump;
+        // All Trump: Highest
+        public static int HighestAllTrumpHand = (int)Values.RightBower + (int)Values.LeftBower + (int)Values.AceTrump + (int)Values.KingTrump + (int)Values.QueenTrump;
+        // Left-Guarded Suit Ace
+        public static int LeftGuardedSuitAce = (int)Values.LeftBower + (int)Values.NineTrump + (int)Values.AceNoTrump + (int)Values.NineNoTrump + (int)Values.TenNoTrump;
         public enum Suit
         {
             Heart,

@@ -46,11 +46,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\BidSuit.cs" />
     <Compile Include="Classes\Card.cs" />
     <Compile Include="Classes\Deck.cs" />
     <Compile Include="Classes\LoadCards.cs" />
     <Compile Include="Classes\Player.cs" />
     <Compile Include="Classes\PlayerManager.cs" />
+    <Compile Include="Extras\Globals.cs" />
     <Compile Include="Extras\Randomizer.cs" />
     <Compile Include="Extras\CommonMod.cs" />
     <Compile Include="Extras\Constants.cs" />
@@ -66,6 +68,12 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmRoundTwo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRoundTwo.Designer.cs">
+      <DependentUpon>frmRoundTwo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmAsk.resx">
@@ -73,6 +81,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmRoundTwo.resx">
+      <DependentUpon>frmRoundTwo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -186,6 +197,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\X_Diamond.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\X_Discard.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\X_Heart.jpg">

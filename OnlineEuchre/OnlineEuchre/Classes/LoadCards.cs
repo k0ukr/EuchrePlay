@@ -17,6 +17,7 @@ namespace OnlineEuchre.Classes
         public static Bitmap ClubTrump = null;
         public static Bitmap DiamondTrump = null;
         public static Bitmap CallCoin = null;
+        public static Bitmap DiscardLabel = null;
         public static Bitmap HeartTrump = null;
         public static Bitmap SpadeTrump = null;
         public static Bitmap CardBack = null;
@@ -50,6 +51,9 @@ namespace OnlineEuchre.Classes
                             break;
                         case "Arrow":
                             ArrowCoin = (Bitmap)Image.FromFile(file);
+                            break;
+                        case "Discard":
+                            DiscardLabel = (Bitmap)Image.FromFile(file);
                             break;
                         case "Club":
                             ClubTrump = (Bitmap)Image.FromFile(file);

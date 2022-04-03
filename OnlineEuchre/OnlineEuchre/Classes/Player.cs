@@ -2,18 +2,22 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using static OnlineEuchre.Extras.Constants;
 
 namespace OnlineEuchre.Classes
 {
     public class Player
     {
-        Dictionary<PictureBox, Card> dictHand = new Dictionary<PictureBox, Card>();
-        PictureBox[] pbCardArray = new PictureBox[5];
-        public Player(int id, PictureBox pb1, PictureBox pb2, PictureBox pb3,
+        private HashSet<Suit> SuitsInHand = new HashSet<Suit>();
+        private Dictionary<PictureBox, Card> dictHand = new Dictionary<PictureBox, Card>();
+        private PictureBox[] pbCardArray = new PictureBox[5];
+        public Player(int id, PlayerManager manager, PictureBox pb1, PictureBox pb2, PictureBox pb3,
                       PictureBox pb4, PictureBox pb5, PictureBox pbPlay,
-                      PictureBox pbCall, PictureBox pbTrump, PictureBox pbTurnup, PictureBox pbArrow, PictureBox pbDeal,
-                      float orient, float arrowOrient, float dealerOrient)
+                      PictureBox pbCall, PictureBox pbTrump, PictureBox pbTurnup, 
+                      PictureBox pbArrow, PictureBox pbDeal, PictureBox pbDiscard,
+                      Label lblWait, float orient, float arrowOrient, float dealerOrient)
         {
+            _manager = manager;
             _Id = id;
             _pb1 = pb1;
             _pb2 = pb2;
@@ -26,6 +30,8 @@ namespace OnlineEuchre.Classes
             _pbTurnup = pbTurnup;
             _pbArrow = pbArrow;
             _pbDeal = pbDeal;
+            _pbDiscard = pbDiscard;
+            _lblWait = lblWait;
             _orient = orient;
             _arrowOrient = arrowOrient;
             _dealerOrient = dealerOrient;
@@ -36,6 +42,7 @@ namespace OnlineEuchre.Classes
             pbCardArray[4] = _pb5;
         }
 
+        private PlayerManager _manager { get; set; }
         private int _Id { get; set; }
         private PictureBox _pb1 { get; set; }
         private PictureBox _pb2 { get; set; }
@@ -48,7 +55,8 @@ namespace OnlineEuchre.Classes
         private PictureBox _pbTurnup { get; set; }
         private PictureBox _pbArrow { get; set; }
         private PictureBox _pbDeal { get; set; }
-
+        private PictureBox _pbDiscard { get; set; }
+        private Label _lblWait { get; set; }
         private float _orient { get; set; }
         private float _arrowOrient { get; set; }
         private float _dealerOrient { get; set; }
@@ -58,6 +66,29 @@ namespace OnlineEuchre.Classes
             {
                 pb.Image = LoadCards.CardBack;
             }
+        }
+
+        public int EvaluateHand(Suit trump)
+        {
+            int retVal = 0;
+            foreach (var crd in dictHand.Values)
+            {
+                retVal += (int)CommonMod.GetValue(trump, crd.cSuit, crd.cRank);
+            }
+            return retVal;
+        }
+
+        public int GetSuits()
+        {
+            SuitsInHand.Clear();
+            foreach (var crd in dictHand.Values)
+            {
+                if (!SuitsInHand.Contains(crd.cSuit))
+                {
+                    SuitsInHand.Add(crd.cSuit);
+                }
+            }
+            return SuitsInHand.Count;
         }
 
         public void ClearHand()
@@ -108,26 +139,64 @@ namespace OnlineEuchre.Classes
             _pbTrump.Image = null;
         }
 
-        public void SetArrow()
+        public void UpdateCallArrow(bool state)
         {
             _pbArrow.Image = CommonMod.RotateBitmap(LoadCards.ArrowCoin, _arrowOrient);
+            _pbArrow.Visible = state;
         }
 
-        public void ClearArrow()
-        {
-            _pbArrow.Image = null;
-        }
-
-        public void UpdateDealer(int dealerID, bool state)
+        public void UpdateDealer(bool state)
         {
             _pbDeal.Image = CommonMod.RotateBitmap(LoadCards.DealerCoin, _dealerOrient);
             _pbDeal.Visible = state;
         }
-
-        public void UpdateCall(int playerID, bool state)
+        public void ClearDealer()
+        {
+            _pbDeal.Image = null;
+            _pbDeal.Visible = false;
+        }
+        public void UpdateCall(bool state)
         {
             _pbCall.Image = CommonMod.RotateBitmap(LoadCards.CallCoin, _dealerOrient);
             _pbCall.Visible = state;
+        }
+        public void ClearCall()
+        {
+            _pbCall.Image = null;
+            _pbCall.Visible = false;
+        }
+
+        public void UpdateDiscard(bool state)
+        {
+            _pbDiscard.Image = CommonMod.RotateBitmap(LoadCards.DiscardLabel, _dealerOrient);
+            _pbDiscard.Visible = state;
+        }
+
+        public void ClearDiscard()
+        {
+            _pbDiscard.Image = null;
+            _pbDiscard.Visible = false;
+        }
+        public Point GetAskAnchorLocation()
+        {
+            Point anchorPoint = new Point(_manager.GetHomePt().X + _pbArrow.Right, _manager.GetHomePt().Y + _pbArrow.Top);
+            return anchorPoint;
+        }
+
+        public void UpdateTimeToWait(int timeToWait)
+        {
+            _lblWait.Visible = (timeToWait > 0);
+            _lblWait.Text = $"{timeToWait}";
+        }
+
+        public void ResetControls()
+        {
+            SuitsInHand.Clear();
+            ClearDealer();
+            ClearDiscard();
+            ClearCall();
+            ClearTrump();
+            ClearHand();
         }
     }
 }
