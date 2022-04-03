@@ -90,6 +90,10 @@ namespace OnlineEuchre
             pm.CallClick();
         }
 
+        public Point GetPanelRoundTwoAnchor()
+        {
+            return panelRoundTwoAnchor.Location;
+        }
         private void Common_PictureBoxPlayer01Click(object sender, EventArgs e)
         {
             pm.Common_PictureBoxPlayer01Click(sender, ref DiscardMode);

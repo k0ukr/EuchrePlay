@@ -39,12 +39,13 @@ namespace OnlineEuchre
             // 
             this.btnCall01.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnCall01.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCall01.Location = new System.Drawing.Point(83, 7);
+            this.btnCall01.Location = new System.Drawing.Point(66, 7);
             this.btnCall01.Name = "btnCall01";
-            this.btnCall01.Size = new System.Drawing.Size(99, 34);
+            this.btnCall01.Size = new System.Drawing.Size(94, 34);
             this.btnCall01.TabIndex = 1;
-            this.btnCall01.Text = "Call";
+            this.btnCall01.Text = "Diamond";
             this.btnCall01.UseVisualStyleBackColor = true;
+            this.btnCall01.Click += new System.EventHandler(this.btnCall01_Click);
             // 
             // btnPass
             // 
@@ -52,47 +53,50 @@ namespace OnlineEuchre
             this.btnPass.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPass.Location = new System.Drawing.Point(7, 7);
             this.btnPass.Name = "btnPass";
-            this.btnPass.Size = new System.Drawing.Size(74, 34);
+            this.btnPass.Size = new System.Drawing.Size(58, 34);
             this.btnPass.TabIndex = 0;
             this.btnPass.Text = "Pass";
             this.btnPass.UseVisualStyleBackColor = true;
+            this.btnPass.Click += new System.EventHandler(this.btnPass_Click);
             // 
             // btnCall02
             // 
             this.btnCall02.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnCall02.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCall02.Location = new System.Drawing.Point(184, 7);
+            this.btnCall02.Location = new System.Drawing.Point(161, 7);
             this.btnCall02.Name = "btnCall02";
-            this.btnCall02.Size = new System.Drawing.Size(99, 34);
+            this.btnCall02.Size = new System.Drawing.Size(94, 34);
             this.btnCall02.TabIndex = 2;
             this.btnCall02.Text = "Call";
             this.btnCall02.UseVisualStyleBackColor = true;
+            this.btnCall02.Click += new System.EventHandler(this.btnCall02_Click);
             // 
             // btnCall03
             // 
             this.btnCall03.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnCall03.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCall03.Location = new System.Drawing.Point(285, 7);
+            this.btnCall03.Location = new System.Drawing.Point(256, 7);
             this.btnCall03.Name = "btnCall03";
-            this.btnCall03.Size = new System.Drawing.Size(99, 34);
+            this.btnCall03.Size = new System.Drawing.Size(94, 34);
             this.btnCall03.TabIndex = 3;
             this.btnCall03.Text = "Call";
             this.btnCall03.UseVisualStyleBackColor = true;
+            this.btnCall03.Click += new System.EventHandler(this.btnCall03_Click);
             // 
             // frmRoundTwo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(391, 48);
+            this.ClientSize = new System.Drawing.Size(357, 48);
             this.Controls.Add(this.btnCall03);
             this.Controls.Add(this.btnCall02);
             this.Controls.Add(this.btnCall01);
             this.Controls.Add(this.btnPass);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmRoundTwo";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "frmRoundTwo";
             this.Load += new System.EventHandler(this.frmRoundTwo_Load);
             this.ResumeLayout(false);

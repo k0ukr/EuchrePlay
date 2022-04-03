@@ -1,4 +1,5 @@
 ﻿using OnlineEuchre.Classes;
+using OnlineEuchre.Extras;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,35 +15,59 @@ namespace OnlineEuchre
 {
     public partial class frmRoundTwo : Form
     {
-        public frmRoundTwo(Suit cSuit)
+        private List<BidSuit> lstCallBtn = new List<BidSuit>();
+        public frmRoundTwo()
         {
             InitializeComponent();
-            _cSuit = cSuit;
         }
-
-        private Suit _cSuit { get; set; }
 
         private void frmRoundTwo_Load(object sender, EventArgs e)
         {
-            LoadLabels();
         }
 
-        private void LoadLabels()
+        public void LoadLabels(Suit cSuit)
         {
             int index = 0;
-            List<BidSuit> lstCallBtn = new List<BidSuit>();
             lstCallBtn.Add(new BidSuit(btnCall01));
             lstCallBtn.Add(new BidSuit(btnCall02));
             lstCallBtn.Add(new BidSuit(btnCall03));
             foreach (Suit cardSuit in Enum.GetValues(typeof(Suit)))
             {
-                if ( cardSuit != _cSuit)
+                if (cardSuit != Suit.None && cardSuit != cSuit)
                 {
                     lstCallBtn[index]._cSuit = cardSuit;
                     lstCallBtn[index]._btn.Text = cardSuit.ToString();
                     index++;
                 }
             }
+        }
+
+        private void btnPass_Click(object sender, EventArgs e)
+        {
+            Globals.PersonPassed = true;
+            this.Hide();
+        }
+
+        private void btnCall01_Click(object sender, EventArgs e)
+        {
+            SetTrump(0);
+        }
+
+        private void btnCall02_Click(object sender, EventArgs e)
+        {
+            SetTrump(1);
+        }
+
+        private void btnCall03_Click(object sender, EventArgs e)
+        {
+            SetTrump(2);
+        }
+
+        private void SetTrump(int index)
+        {
+            Globals.TrumpCalled = true;
+            Globals.TrumpSuit = lstCallBtn[index]._cSuit;
+            this.Hide();
         }
     }
 }

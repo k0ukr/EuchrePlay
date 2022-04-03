@@ -35,6 +35,7 @@ namespace OnlineEuchre.Extras
         public static int LeftGuardedSuitAce = (int)Values.LeftBower + (int)Values.NineTrump + (int)Values.AceNoTrump + (int)Values.NineNoTrump + (int)Values.TenNoTrump;
         public enum Suit
         {
+            None,
             Heart,
             Club,
             Diamond,

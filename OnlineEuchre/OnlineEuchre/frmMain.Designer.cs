@@ -98,6 +98,7 @@ namespace OnlineEuchre
             this.lbl02_Wait = new System.Windows.Forms.Label();
             this.lbl03_Wait = new System.Windows.Forms.Label();
             this.lbl04_Wait = new System.Windows.Forms.Label();
+            this.panelRoundTwoAnchor = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.pb01_01)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pb01_05)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pb01_04)).BeginInit();
@@ -862,12 +863,21 @@ namespace OnlineEuchre
             this.lbl04_Wait.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lbl04_Wait.Visible = false;
             // 
+            // panelRoundTwoAnchor
+            // 
+            this.panelRoundTwoAnchor.Location = new System.Drawing.Point(145, 201);
+            this.panelRoundTwoAnchor.Name = "panelRoundTwoAnchor";
+            this.panelRoundTwoAnchor.Size = new System.Drawing.Size(10, 10);
+            this.panelRoundTwoAnchor.TabIndex = 67;
+            this.panelRoundTwoAnchor.Visible = false;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MediumSeaGreen;
             this.ClientSize = new System.Drawing.Size(852, 624);
+            this.Controls.Add(this.panelRoundTwoAnchor);
             this.Controls.Add(this.lbl04_Wait);
             this.Controls.Add(this.lbl03_Wait);
             this.Controls.Add(this.lbl02_Wait);
@@ -1058,6 +1068,7 @@ namespace OnlineEuchre
         private System.Windows.Forms.Label lbl02_Wait;
         private System.Windows.Forms.Label lbl03_Wait;
         private System.Windows.Forms.Label lbl04_Wait;
+        private System.Windows.Forms.Panel panelRoundTwoAnchor;
     }
 }
 

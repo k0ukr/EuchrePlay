@@ -5,6 +5,7 @@ using System.Drawing;
 using System.IO;
 using System.Timers;
 using System.Windows.Forms;
+using static OnlineEuchre.Extras.Constants;
 using static OnlineEuchre.Extras.Randomizer;
 
 namespace OnlineEuchre.Classes
@@ -12,6 +13,7 @@ namespace OnlineEuchre.Classes
     public class PlayerManager
     {
         frmAsk AskForm = new frmAsk();
+        frmRoundTwo formRoundTwo = null;
         List<int> lstDeck = null;
         Card TurnupCard = null;
         System.Timers.Timer EuchreTimer = null;
@@ -79,7 +81,7 @@ namespace OnlineEuchre.Classes
             foreach (KeyValuePair<int, Player> keyVal in dictPlayer)
             {
                 prevPlayer?.ClearTrump();
-                keyVal.Value.SetTrump((Constants.Suit)(keyVal.Key - 1));
+                keyVal.Value.SetTrump((Constants.Suit)(keyVal.Key));
                 StartEuchreTimer();
                 while (!GoAheadEuchre) { Application.DoEvents(); };
                 prevPlayer = keyVal.Value;
@@ -93,10 +95,11 @@ namespace OnlineEuchre.Classes
             Player prevPlayer = null;
             foreach (KeyValuePair<int, Player> keyVal in dictPlayer)
             {
+                prevPlayer = keyVal.Value;
                 prevPlayer?.UpdateCallArrow(true);
                 StartCallTimer();
                 while (!GoAheadCall) { Application.DoEvents(); };
-                prevPlayer = keyVal.Value;
+                prevPlayer?.UpdateCallArrow(false);
             }
             prevPlayer?.UpdateCallArrow(false);
             StopCallTimer();
@@ -193,6 +196,7 @@ namespace OnlineEuchre.Classes
 
         private bool Bid_Round1()
         {
+            Globals.TrumpSuit = Suit.None;
             AddToLog("Bid: Round 1");
             int index = 0;
             bool retVal = false;
@@ -233,6 +237,7 @@ namespace OnlineEuchre.Classes
 
             if (Globals.TrumpCalled )
             {
+                Globals.TrumpSuit = TurnupCard.cSuit;
                 CalledTrumpPlayerID = playerID;
                 dictPlayer[CalledTrumpPlayerID].UpdateCall(true);
                 dictPlayer[CalledTrumpPlayerID].SetTrump(TurnupCard.cSuit);
@@ -265,10 +270,73 @@ namespace OnlineEuchre.Classes
         {
             bool retVal = false;
             AddToLog("Start Round 2 Bidding");
-            frmRoundTwo frm = new frmRoundTwo(TurnupCard.cSuit);
-            frm.ShowDialog();
+
+            int index = 0;
+
+            Globals.TrumpCalled = false;
+            int playerID = DealerID;
+            int timeToWait = Constants.CallWaitTime;
+            // Loop thru each player, break out if someone calls trump
+            while (index++ < 4 && !Globals.TrumpCalled)
+            {
+                ShowRoundTwo();
+                Globals.PersonPassed = false;
+                playerID = CommonMod.lstNextWhatever[playerID - 1];
+                // Loop for CallWaitTime seconds
+                for (int ttw = Constants.CallWaitTime; ttw >= 0; ttw--)
+                {
+                    GoAheadCall = false;
+                    StartCallTimer();
+                    dictPlayer[playerID].UpdateTimeToWait(ttw);
+                    while (!GoAheadCall && ttw >= 0) { Application.DoEvents(); };
+                    if (Globals.TrumpCalled || Globals.PersonPassed)
+                    {
+                        break;
+                    }
+                }
+                if (Globals.TrumpCalled)
+                {
+                    dictPlayer[playerID].UpdateTimeToWait(0);
+                    break;
+                }
+                if (Globals.PersonPassed)
+                {
+                    dictPlayer[playerID].UpdateTimeToWait(0);
+                    AddToLog($"Player #:{playerID} Second pass");
+                }
+            }
+
+            if (Globals.TrumpCalled)
+            {
+                CalledTrumpPlayerID = playerID;
+                dictPlayer[CalledTrumpPlayerID].UpdateCall(true);
+                //todo: Maybe set Trump at the PlayerManager Level or better yet, the Game Level
+                dictPlayer[CalledTrumpPlayerID].SetTrump(Globals.TrumpSuit);
+
+                AddToLog($"Player #:{CalledTrumpPlayerID} called Trump: {Globals.TrumpSuit.ToString()}");
+            }
             return retVal;
         }
+
+        private void ShowRoundTwo()
+        {
+            if (formRoundTwo == null)
+            {
+                formRoundTwo = new frmRoundTwo();
+            }
+            formRoundTwo.LoadLabels(TurnupCard.cSuit);
+            Point anchorPoint = GetRoundTwoAnchorLocation();
+            formRoundTwo.Top = anchorPoint.Y;
+            formRoundTwo.Left = anchorPoint.X;
+            formRoundTwo.Show();
+        }
+
+        public Point GetRoundTwoAnchorLocation()
+        {
+            Point anchorPoint = new Point(GetHomePt().X + _frmMain.GetPanelRoundTwoAnchor().X, GetHomePt().Y + _frmMain.GetPanelRoundTwoAnchor().Y);
+            return anchorPoint;
+        }
+
         public void StartEuchreTimer()
         {
             EuchreTimer.Start();
