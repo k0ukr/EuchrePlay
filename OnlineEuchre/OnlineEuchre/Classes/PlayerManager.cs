@@ -1,8 +1,8 @@
-﻿using OnlineEuchre.Extras;
-using System;
+﻿using OnlineEuchre.Classes.Static;
+using OnlineEuchre.Extras;
+using OnlineEuchre.View;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Timers;
 using System.Windows.Forms;
 using static OnlineEuchre.Extras.Constants;
@@ -17,22 +17,19 @@ namespace OnlineEuchre.Classes
         List<int> lstDeck = null;
         Card TurnupCard = null;
         System.Timers.Timer EuchreTimer = null;
-//        System.Timers.Timer CallCountdownTimer = null;
         System.Timers.Timer CallTimer = null;
-        private frmMain _frmMain { get; set; }
         private ListBox _lbLog { get; set; }
         private static bool GoAheadEuchre = false;
         private static bool GoAheadCall = false;
-        //private static bool GoAheadCallCountdown = false;
-        private int DealerID { get; set; }
+        public int DealerID { get; private set; }
         private int PlayerID { get; set; }
         private int CalledTrumpPlayerID { get; set; }
         private int TrumpID { get; set; }
 
-        Dictionary<int, Player> dictPlayer = new Dictionary<int, Player>();
-        public PlayerManager(frmMain formMain, ListBox lbLog)
+        public Dictionary<int, Player> dictPlayer = new Dictionary<int, Player>();
+        public PlayerManager(GameManager gm, ListBox lbLog)
         {
-            _frmMain = formMain;
+            _gm = gm;
             _lbLog = lbLog;
             EuchreTimer = new System.Timers.Timer(450);
             EuchreTimer.Elapsed += new ElapsedEventHandler(OnEuchreTimedEvent);
@@ -40,14 +37,11 @@ namespace OnlineEuchre.Classes
             CallTimer = new System.Timers.Timer(1000);
             CallTimer.Elapsed += new ElapsedEventHandler(OnCallTimedEvent);
 
-            //CallCountdownTimer = new System.Timers.Timer(1000);
-            //CallCountdownTimer.Elapsed += new ElapsedEventHandler(OnCallCountdownTimedEvent);
-
             DealerID = 4;
             PlayerID = 1;
-            Constants.gAppPath = Path.GetDirectoryName(Application.ExecutablePath);
-            LoadCards.LoadImages(Constants.gAppPath);
         }
+
+        private GameManager _gm { get; set; }
         public void LoadPlayers (Player p1, Player p2, Player p3, Player p4)
         {
             dictPlayer.Add(1, p1);
@@ -67,12 +61,6 @@ namespace OnlineEuchre.Classes
             ((System.Timers.Timer)source).Stop();
             GoAheadCall = true;
         }
-
-        //private static void OnCallCountdownTimedEvent(object source, ElapsedEventArgs e)
-        //{
-        //    ((System.Timers.Timer)source).Stop();
-        //    GoAheadCallCountdown = true;
-        //}
 
         public void TrumpClick()
         {
@@ -107,12 +95,12 @@ namespace OnlineEuchre.Classes
 
         private void HideTurnup()
         {
-            _frmMain.SetTurnUp(false, null);
+            _gm.SetTurnUp(false, null);
         }
 
         private void ShowTurnup(int index)
         {
-            _frmMain.SetTurnUp(true, CommonMod.RotateBitmap(LoadCards.GetByElement(index - 1).cImage, Constants.Vertical));
+            _gm.SetTurnUp(true, CommonMod.RotateBitmap(LoadCardSingleton.GetByElement(index - 1).cImage, Constants.Vertical));
         }
 
         public void ClearLog()
@@ -127,6 +115,7 @@ namespace OnlineEuchre.Classes
 
         public void ResetPlayerControls()
         {
+            HideTurnup();
             foreach (KeyValuePair<int, Player> kvp in dictPlayer)
             {
                 kvp.Value.ResetControls();
@@ -141,11 +130,6 @@ namespace OnlineEuchre.Classes
             Shuffle();
             AdvanceDealer();
             DealCards();
-            // Round 1 Bid
-            if ( !Bid_Round1() )
-            {
-                Bid_Round2();
-            }
         }
 
         public void Shuffle()
@@ -187,22 +171,20 @@ namespace OnlineEuchre.Classes
                 }
             }
 
-            TurnupCard = LoadCards.GetByElement(lstDeck[index] - 1);
+            TurnupCard = LoadCardSingleton.GetByElement(lstDeck[index] - 1);
             ShowTurnup(lstDeck[index]);
         }
 
         //Bid: Round 1
         // Here, we ask each player if they want to 'Pass' or 'Call'.
-
-        private bool Bid_Round1()
+        public bool Bid_Round1()
         {
+            bool retVal = false;
             Globals.TrumpSuit = Suit.None;
             AddToLog("Bid: Round 1");
             int index = 0;
-            bool retVal = false;
             Globals.TrumpCalled = false;
             int playerID = DealerID;
-            int timeToWait = Constants.CallWaitTime;
             // Loop thru each player, break out if someone calls trump
             while (index++ < 4 && !Globals.TrumpCalled)
             {
@@ -210,7 +192,7 @@ namespace OnlineEuchre.Classes
                 Globals.PersonPassed = false;
                 playerID = CommonMod.lstNextWhatever[playerID - 1];
                 AddToLog($"Player #:{playerID} Hand Value: {dictPlayer[playerID].EvaluateHand(TurnupCard.cSuit)}");
-                AddToLog($"Player #:{playerID} Total Suits: {dictPlayer[playerID].GetSuits()}");
+                AddToLog($"Player #:{playerID} Total Suits: {dictPlayer[playerID].GetSuitCount()}");
                 // Loop for CallWaitTime seconds
                 for (int ttw = Constants.CallWaitTime; ttw >= 0;ttw--)
                 {
@@ -244,14 +226,15 @@ namespace OnlineEuchre.Classes
 
                 AddToLog($"Player #:{CalledTrumpPlayerID} called Trump: {TurnupCard.cSuit.ToString()}");
                 AddToLog($"Player #:{DealerID} Hand Value: {dictPlayer[DealerID].EvaluateHand(TurnupCard.cSuit)}");
-                _frmMain.SetDiscardMode(true);
-                _frmMain.SetlblDiscardVisibility(true);
+                _gm.SetDiscardMode(true);
+                _gm.SetlblDiscardVisibility(true);
+                retVal = true;
             }
             else
             {
                 HideTurnup();
-                dictPlayer[DealerID].UpdateCallArrow(false);
             }
+            AskForm.Hide();
             return retVal;
         }
 
@@ -266,7 +249,7 @@ namespace OnlineEuchre.Classes
             AskForm.Show();
         }
 
-        private bool Bid_Round2()
+        public bool Bid_Round2()
         {
             bool retVal = false;
             AddToLog("Start Round 2 Bidding");
@@ -275,10 +258,11 @@ namespace OnlineEuchre.Classes
 
             Globals.TrumpCalled = false;
             int playerID = DealerID;
-            int timeToWait = Constants.CallWaitTime;
             // Loop thru each player, break out if someone calls trump
             while (index++ < 4 && !Globals.TrumpCalled)
             {
+                dictPlayer[playerID].EvaluateAllSuitValue();
+                AddToLog($"Player #:{playerID} Club: {dictPlayer[playerID].HandValue(Constants.Suit.Club)}  Diamond: {dictPlayer[playerID].HandValue(Constants.Suit.Diamond)}  Heart: {dictPlayer[playerID].HandValue(Constants.Suit.Heart)}  Spade: {dictPlayer[playerID].HandValue(Constants.Suit.Spade)}");
                 ShowRoundTwo();
                 Globals.PersonPassed = false;
                 playerID = CommonMod.lstNextWhatever[playerID - 1];
@@ -314,7 +298,10 @@ namespace OnlineEuchre.Classes
                 dictPlayer[CalledTrumpPlayerID].SetTrump(Globals.TrumpSuit);
 
                 AddToLog($"Player #:{CalledTrumpPlayerID} called Trump: {Globals.TrumpSuit.ToString()}");
+                retVal = true;
             }
+            dictPlayer[DealerID].UpdateCallArrow(false);
+            formRoundTwo.Hide();
             return retVal;
         }
 
@@ -333,7 +320,7 @@ namespace OnlineEuchre.Classes
 
         public Point GetRoundTwoAnchorLocation()
         {
-            Point anchorPoint = new Point(GetHomePt().X + _frmMain.GetPanelRoundTwoAnchor().X, GetHomePt().Y + _frmMain.GetPanelRoundTwoAnchor().Y);
+            Point anchorPoint = new Point(GetHomePt().X + _gm.GetPanelRoundTwoAnchor().X, GetHomePt().Y + _gm.GetPanelRoundTwoAnchor().Y);
             return anchorPoint;
         }
 
@@ -361,63 +348,23 @@ namespace OnlineEuchre.Classes
             GoAheadCall = true;
         }
 
-        //public void StartCallCountdownTimer()
-        //{
-        //    CallCountdownTimer.Start();
-        //    GoAheadCallCountdown = false;
-        //}
-
-        //public void StopCallCountdownTimer()
-        //{
-        //    CallCountdownTimer.Stop();
-        //    GoAheadCallCountdown = true;
-        //}
-
-        public void Common_PictureBoxPlayer01Click(object sender, ref bool discardMode)
+        public void Common_PictureBoxPlayerClick(int playerID, object sender, ref bool discardMode)
         {
-            if (discardMode && DealerID == 1)
-            {
-                Common_PictureBoxClick(sender, ref discardMode);
-            }
-        }
-        public void Common_PictureBoxPlayer02Click(object sender, ref bool discardMode)
-        {
-            if (discardMode && DealerID == 2)
-            {
-                Common_PictureBoxClick(sender, ref discardMode);
-            }
-        }
-        public void Common_PictureBoxPlayer03Click(object sender, ref bool discardMode)
-        {
-            if (discardMode && DealerID == 3)
-            {
-                Common_PictureBoxClick(sender, ref discardMode);
-            }
-        }
-        public void Common_PictureBoxPlayer04Click(object sender, ref bool discardMode)
-        {
-            if (discardMode && DealerID == 4)
-            {
-                Common_PictureBoxClick(sender, ref discardMode);
-            }
-        }
-
-        public void Common_PictureBoxClick(object sender, ref bool discardMode)
-        {
-            if (discardMode)
+            if (discardMode && playerID == DealerID)
             {
                 AddToLog($"Dealer discarded");
                 dictPlayer[DealerID].Pickup((PictureBox)sender, lstDeck[Constants.TURNUP_INDEX]);
                 AddToLog($"Player #:{DealerID} New Hand Value: {dictPlayer[DealerID].EvaluateHand(TurnupCard.cSuit)}");
                 Application.DoEvents();
                 discardMode = false;
-                _frmMain.SetlblDiscardVisibility(false);
+                _gm.SetlblDiscardVisibility(false);
                 dictPlayer[DealerID].UpdateCallArrow(false);
             }
         }
+
         public Point GetHomePt()
         {
-            return _frmMain.Location;
+            return _gm.GetHomePt();
         }
 
         public void SetDiscardVisibility(bool state)

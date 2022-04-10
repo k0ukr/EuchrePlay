@@ -11,6 +11,7 @@ namespace OnlineEuchre.Extras
     public static class Constants
     {
         public static int CallWaitTime = 5;
+        public static int PlayWaitTime = 9;
         public static string gAppPath;
         public const int TURNUP_INDEX = 21;
 
@@ -33,6 +34,15 @@ namespace OnlineEuchre.Extras
         public static int HighestAllTrumpHand = (int)Values.RightBower + (int)Values.LeftBower + (int)Values.AceTrump + (int)Values.KingTrump + (int)Values.QueenTrump;
         // Left-Guarded Suit Ace
         public static int LeftGuardedSuitAce = (int)Values.LeftBower + (int)Values.NineTrump + (int)Values.AceNoTrump + (int)Values.NineNoTrump + (int)Values.TenNoTrump;
+
+        public static int PointsToWin = 10;
+
+        public enum  Team
+        {
+            TeamA,
+            TeamB
+        }
+
         public enum Suit
         {
             None,

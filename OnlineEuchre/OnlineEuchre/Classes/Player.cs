@@ -1,4 +1,6 @@
-﻿using OnlineEuchre.Extras;
+﻿using OnlineEuchre.Classes.Static;
+using OnlineEuchre.Extras;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
@@ -6,16 +8,13 @@ using static OnlineEuchre.Extras.Constants;
 
 namespace OnlineEuchre.Classes
 {
-    public class Player
+    public class Player : Hand
     {
-        private HashSet<Suit> SuitsInHand = new HashSet<Suit>();
-        private Dictionary<PictureBox, Card> dictHand = new Dictionary<PictureBox, Card>();
-        private PictureBox[] pbCardArray = new PictureBox[5];
         public Player(int id, PlayerManager manager, PictureBox pb1, PictureBox pb2, PictureBox pb3,
                       PictureBox pb4, PictureBox pb5, PictureBox pbPlay,
                       PictureBox pbCall, PictureBox pbTrump, PictureBox pbTurnup, 
                       PictureBox pbArrow, PictureBox pbDeal, PictureBox pbDiscard,
-                      Label lblWait, float orient, float arrowOrient, float dealerOrient)
+                      Label lblWait, float orient, float arrowOrient, float dealerOrient) : base(orient)
         {
             _manager = manager;
             _Id = id;
@@ -32,7 +31,6 @@ namespace OnlineEuchre.Classes
             _pbDeal = pbDeal;
             _pbDiscard = pbDiscard;
             _lblWait = lblWait;
-            _orient = orient;
             _arrowOrient = arrowOrient;
             _dealerOrient = dealerOrient;
             pbCardArray[0] = _pb1;
@@ -57,55 +55,24 @@ namespace OnlineEuchre.Classes
         private PictureBox _pbDeal { get; set; }
         private PictureBox _pbDiscard { get; set; }
         private Label _lblWait { get; set; }
-        private float _orient { get; set; }
         private float _arrowOrient { get; set; }
         private float _dealerOrient { get; set; }
         public void LoadBack()
         {
             foreach ( var pb in pbCardArray)
             {
-                pb.Image = LoadCards.CardBack;
+                pb.Image = LoadCardSingleton.CardBack;
             }
         }
 
-        public int EvaluateHand(Suit trump)
+        public List<Card> GetHand()
         {
-            int retVal = 0;
-            foreach (var crd in dictHand.Values)
-            {
-                retVal += (int)CommonMod.GetValue(trump, crd.cSuit, crd.cRank);
-            }
-            return retVal;
+            return lstCards;
         }
-
-        public int GetSuits()
-        {
-            SuitsInHand.Clear();
-            foreach (var crd in dictHand.Values)
-            {
-                if (!SuitsInHand.Contains(crd.cSuit))
-                {
-                    SuitsInHand.Add(crd.cSuit);
-                }
-            }
-            return SuitsInHand.Count;
-        }
-
-        public void ClearHand()
-        {
-            dictHand.Clear();
-        }
-        public void LoadHand(int cardex, int index)
-        {
-            Card crd = LoadCards.GetByElement(index - 1);
-            dictHand.Add(pbCardArray[cardex - 1],crd);
-            pbCardArray[cardex - 1].Image = CommonMod.RotateBitmap(crd.cImage, _orient);
-        }
-
         public void Pickup(PictureBox pb, int index)
         {
             Card prevCard = dictHand[pb];
-            Card turnupCrd = LoadCards.GetByElement(index - 1);
+            Card turnupCrd = LoadCardSingleton.GetByElement(index - 1);
             dictHand[pb] = turnupCrd;
             pb.Image = CommonMod.RotateBitmap(dictHand[pb].cImage, _orient);
             Card newCard = dictHand[pb];
@@ -119,16 +86,16 @@ namespace OnlineEuchre.Classes
             switch (suit)
             {
                 case Constants.Suit.Club:
-                    trumpImage = LoadCards.ClubTrump;
+                    trumpImage = LoadCardSingleton.ClubTrump;
                     break;
                 case Constants.Suit.Diamond:
-                    trumpImage = LoadCards.DiamondTrump;
+                    trumpImage = LoadCardSingleton.DiamondTrump;
                     break;
                 case Constants.Suit.Heart:
-                    trumpImage = LoadCards.HeartTrump;
+                    trumpImage = LoadCardSingleton.HeartTrump;
                     break;
                 case Constants.Suit.Spade:
-                    trumpImage = LoadCards.SpadeTrump;
+                    trumpImage = LoadCardSingleton.SpadeTrump;
                     break;
             }
             _pbTrump.Image = trumpImage;
@@ -137,17 +104,23 @@ namespace OnlineEuchre.Classes
         public void ClearTrump()
         {
             _pbTrump.Image = null;
+            //_pbTrump.Visible = false;
         }
 
         public void UpdateCallArrow(bool state)
         {
-            _pbArrow.Image = CommonMod.RotateBitmap(LoadCards.ArrowCoin, _arrowOrient);
+            _pbArrow.Image = CommonMod.RotateBitmap(LoadCardSingleton.ArrowCoin, _arrowOrient);
             _pbArrow.Visible = state;
         }
 
+        public void ClearCallArrow()
+        {
+            _pbArrow.Image = null;
+            _pbArrow.Visible = false;
+        }
         public void UpdateDealer(bool state)
         {
-            _pbDeal.Image = CommonMod.RotateBitmap(LoadCards.DealerCoin, _dealerOrient);
+            _pbDeal.Image = CommonMod.RotateBitmap(LoadCardSingleton.DealerCoin, _dealerOrient);
             _pbDeal.Visible = state;
         }
         public void ClearDealer()
@@ -157,7 +130,7 @@ namespace OnlineEuchre.Classes
         }
         public void UpdateCall(bool state)
         {
-            _pbCall.Image = CommonMod.RotateBitmap(LoadCards.CallCoin, _dealerOrient);
+            _pbCall.Image = CommonMod.RotateBitmap(LoadCardSingleton.CallCoin, _dealerOrient);
             _pbCall.Visible = state;
         }
         public void ClearCall()
@@ -168,7 +141,7 @@ namespace OnlineEuchre.Classes
 
         public void UpdateDiscard(bool state)
         {
-            _pbDiscard.Image = CommonMod.RotateBitmap(LoadCards.DiscardLabel, _dealerOrient);
+            _pbDiscard.Image = CommonMod.RotateBitmap(LoadCardSingleton.DiscardLabel, _dealerOrient);
             _pbDiscard.Visible = state;
         }
 
@@ -197,6 +170,7 @@ namespace OnlineEuchre.Classes
             ClearCall();
             ClearTrump();
             ClearHand();
+            ClearCallArrow();
         }
     }
 }
